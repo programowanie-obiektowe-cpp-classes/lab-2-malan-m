@@ -26,6 +26,22 @@ public:
         return *this;
     }
 
+    ResourceManager(ResourceManager&& other) noexcept
+        : resource(other.resource)
+    {
+        other.resource = nullptr;
+    }
+    ResourceManager& operator=(ResourceManager&& other) noexcept
+    {
+        if (this != &other)
+        {
+            delete resource;
+            resource = other.resource;
+            other.resource = nullptr;
+        }
+        return *this;
+    }
+
     ~ResourceManager()
     {
         delete resource;
